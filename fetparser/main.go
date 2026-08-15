@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/xml"
-	"fetparser/fet_parse"
+	"fetparser/fetparse"
 	"fmt"
 	"os"
 )
@@ -10,19 +10,30 @@ import (
 func main() {
 	fmt.Printf("Command: %+v\n", os.Args)
 	fpath := os.Args[1]
-	fet := fet_parse.Parse(fpath)
-	fmt.Println("Time Constraints:")
-	for _, c := range fet.Time_Constraints.Constraints {
-		fmt.Printf("== %+v\n", c)
+	fet := fetparse.Parse(fpath)
+
+	fmt.Println("Days:")
+	for _, d := range fet.DaysList.Days {
+		fmt.Printf("== %+v\n", d)
 	}
-	fmt.Println("Space Constraints:")
-	for _, c := range fet.Space_Constraints.Constraints {
-		fmt.Printf("== %+v\n", c.XMLName.Local)
+	fmt.Println("Hours:")
+	for _, h := range fet.HoursList.Hours {
+		fmt.Printf("== %+v\n", h)
 	}
-	fmt.Println("TODO:")
-	for _, x := range fet.TODO {
-		fmt.Printf("== %+v\n", x)
-	}
+	/*
+		fmt.Println("Time Constraints:")
+		for _, c := range fet.TimeConstraints.Constraints {
+			fmt.Printf("== %+v\n", c)
+		}
+		fmt.Println("Space Constraints:")
+		for _, c := range fet.SpaceConstraints.Constraints {
+			fmt.Printf("== %+v\n", c.XMLName.Local)
+		}
+		fmt.Println("TODO:")
+		for _, x := range fet.TODO {
+			fmt.Printf("== %+v\n", x)
+		}
+	*/
 
 	out, err := xml.MarshalIndent(fet, "", "  ")
 	if err != nil {
