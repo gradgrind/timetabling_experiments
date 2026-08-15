@@ -12,15 +12,25 @@ func main() {
 	fpath := os.Args[1]
 	fet := fetparse.Parse(fpath)
 
-	fmt.Println("Days:")
-	for _, d := range fet.DaysList.Days {
-		fmt.Printf("== %+v\n", d)
+	fmt.Println("Classes:")
+	for _, x := range fet.ClassesList.Classes {
+		fmt.Printf("== %+v\n", x)
 	}
-	fmt.Println("Hours:")
-	for _, h := range fet.HoursList.Hours {
-		fmt.Printf("== %+v\n", h)
-	}
+
 	/*
+		fmt.Println("Days:")
+		for _, d := range fet.DaysList.Days {
+			fmt.Printf("== %+v\n", d)
+		}
+		fmt.Println("Hours:")
+		for _, h := range fet.HoursList.Hours {
+			fmt.Printf("== %+v\n", h)
+		}
+		fmt.Println("Subjects:")
+		for _, x := range fet.SubjectsList.Subjects {
+			fmt.Printf("== %+v\n", x)
+		}
+
 		fmt.Println("Time Constraints:")
 		for _, c := range fet.TimeConstraints.Constraints {
 			fmt.Printf("== %+v\n", c)
