@@ -7,6 +7,19 @@ import (
 	"os"
 )
 
+/* This might be a "fix" for whitespace in empty string fields, if necessary?
+
+type StringValue string
+
+func (s *StringValue) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	var v string
+	d.DecodeElement(&v, &start)
+	*s = StringValue(strings.TrimSpace(v))
+	return nil
+}
+
+*/
+
 type FetTree struct {
 	XMLName          xml.Name `xml:"fet"`
 	Version          string   `xml:"version,attr"`
@@ -78,8 +91,12 @@ type Teacher struct {
 	Item
 	Code                   string
 	Target_Number_of_Hours int
-	Qualified_Subjects     []string
+	Qualified_Subjects     qualifiedSubjectsList
 	Comments               string
+}
+
+type qualifiedSubjectsList struct {
+	QualifiedSubjects []string `xml:"Qualified_Subject"`
 }
 
 type classesList struct {
@@ -121,47 +138,6 @@ type FetClassSubgroup struct {
 	NumberOfStudents int `xml:"Number_of_Students"`
 	Comments         string
 }
-
-/*
-<!-- The information regarding categories, divisions of each category, and separator is only used in the divide year automatically by categories dialog. -->
-      <Number_of_Categories>1</Number_of_Categories>
-      <Category>
-        <Number_of_Divisions>2</Number_of_Divisions>
-        <Division>A</Division>
-        <Division>B</Division>
-      </Category>
-      <First_Category_Is_Permanent>false</First_Category_Is_Permanent>
-      <Separator>.</Separator>
-      <Group>
-        <Name>1.A</Name>
-        <Long_Name></Long_Name>
-        <Code></Code>
-        <Number_of_Students>0</Number_of_Students>
-        <Comments></Comments>
-        <Subgroup>
-          <Name>1#A</Name>
-          <Long_Name></Long_Name>
-          <Code></Code>
-          <Number_of_Students>0</Number_of_Students>
-          <Comments></Comments>
-        </Subgroup>
-      </Group>
-      <Group>
-        <Name>1.B</Name>
-        <Long_Name></Long_Name>
-        <Code></Code>
-        <Number_of_Students>0</Number_of_Students>
-        <Comments></Comments>
-        <Subgroup>
-          <Name>1#B</Name>
-          <Long_Name></Long_Name>
-          <Code></Code>
-          <Number_of_Students>0</Number_of_Students>
-          <Comments></Comments>
-        </Subgroup>
-      </Group>
-    </Year>
-*/
 
 type timeConstraints struct {
 	//	XMLName     xml.Name     `xml:"Time_Constraints_List"`

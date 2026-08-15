@@ -16,6 +16,10 @@ func main() {
 	for _, x := range fet.ClassesList.Classes {
 		fmt.Printf("== %+v\n", x)
 	}
+	fmt.Println("Teachers:")
+	for _, x := range fet.TeachersList.Teachers {
+		fmt.Printf("== %+v\n", x)
+	}
 
 	/*
 		fmt.Println("Days:")
